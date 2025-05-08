@@ -15,7 +15,10 @@ def folder_to_keys(folder, enable_text=True, enable_image=True, enable_metadata=
     image_files = None
     if enable_text:
         text_files = [*path.glob("**/*.txt")]
-        text_files = {text_file.relative_to(path).as_posix(): text_file for text_file in text_files}
+        text_files = {
+            text_file.relative_to(path).as_posix(): text_file
+            for text_file in text_files
+        }
     if enable_image:
         image_files = [
             *path.glob("**/*.png"),
@@ -29,10 +32,16 @@ def folder_to_keys(folder, enable_text=True, enable_image=True, enable_metadata=
             *path.glob("**/*.BMP"),
             *path.glob("**/*.WEBP"),
         ]
-        image_files = {image_file.relative_to(path).as_posix(): image_file for image_file in image_files}
+        image_files = {
+            image_file.relative_to(path).as_posix(): image_file
+            for image_file in image_files
+        }
     if enable_metadata:
         metadata_files = [*path.glob("**/*.json")]
-        metadata_files = {metadata_file.relative_to(path).as_posix(): metadata_file for metadata_file in metadata_files}
+        metadata_files = {
+            metadata_file.relative_to(path).as_posix(): metadata_file
+            for metadata_file in metadata_files
+        }
 
     keys = None
 
@@ -45,9 +54,7 @@ def folder_to_keys(folder, enable_text=True, enable_image=True, enable_metadata=
         keys = join(image_files.keys())
     elif enable_metadata:
         keys = join(metadata_files.keys())
-
     keys = list(sorted(keys))
-
     return keys, text_files, image_files, metadata_files
 
 
@@ -83,10 +90,14 @@ def get_image_dataset():
                 self.tokenizer = lambda text: tokenizer([text])[0]
                 self.text_files = {k: v for k, v in text_files.items() if k in keys_set}
             if self.enable_image:
-                self.image_files = {k: v for k, v in image_files.items() if k in keys_set}
+                self.image_files = {
+                    k: v for k, v in image_files.items() if k in keys_set
+                }
                 self.image_transform = preprocess
             if self.enable_metadata:
-                self.metadata_files = {k: v for k, v in metadata_files.items() if k in keys_set}
+                self.metadata_files = {
+                    k: v for k, v in metadata_files.items() if k in keys_set
+                }
 
         def __len__(self):
             return len(self.keys)
@@ -139,7 +150,12 @@ def create_webdataset(
 
     urls = input_sampler(urls)
 
-    dataset = wds.WebDataset(urls, cache_dir=cache_path, cache_size=10**10, handler=wds.handlers.warn_and_continue)
+    dataset = wds.WebDataset(
+        urls,
+        cache_dir=cache_path,
+        cache_size=10**10,
+        handler=wds.handlers.warn_and_continue,
+    )
 
     def _tokenizer(text):
         return tokenizer([text])[0]
@@ -177,7 +193,9 @@ def create_webdataset(
             output["metadata"] = metadata
         return output
 
-    transformed_dataset = filtered_dataset.map(preprocess_dataset, handler=wds.handlers.warn_and_continue)
+    transformed_dataset = filtered_dataset.map(
+        preprocess_dataset, handler=wds.handlers.warn_and_continue
+    )
     return transformed_dataset
 
 
@@ -194,7 +212,7 @@ def dataset_to_dataloader(dataset, batch_size, num_prepro_workers, input_format)
         shuffle=False,
         num_workers=num_prepro_workers,
         pin_memory=True,
-        prefetch_factor=2,
+        # prefetch_factor=2,
         collate_fn=collate_fn if input_format == "files" else None,
     )
     return data
@@ -217,9 +235,17 @@ class FilesReader:
     ) -> None:
         super().__init__()
         dataset = get_image_dataset()(
-            preprocess, tokenizer, input_dataset, enable_text, enable_image, enable_metadata, sampler
+            preprocess,
+            tokenizer,
+            input_dataset,
+            enable_text,
+            enable_image,
+            enable_metadata,
+            sampler,
         )
-        self.dataloader = dataset_to_dataloader(dataset, batch_size, num_prepro_workers, "files")
+        self.dataloader = dataset_to_dataloader(
+            dataset, batch_size, num_prepro_workers, "files"
+        )
 
     def __iter__(self):
         for batch in self.dataloader:
@@ -257,7 +283,9 @@ class WebdatasetReader:
             cache_path=cache_path,
             input_sampler=sampler,
         )
-        self.dataloader = dataset_to_dataloader(dataset, batch_size, num_prepro_workers, "webdataset")
+        self.dataloader = dataset_to_dataloader(
+            dataset, batch_size, num_prepro_workers, "webdataset"
+        )
 
     def __iter__(self):
         for batch in self.dataloader:

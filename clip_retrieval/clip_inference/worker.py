@@ -54,6 +54,7 @@ def worker(
             use_jit=use_jit,
             warmup_batch_size=batch_size,
             clip_cache_path=clip_cache_path,
+            device="cpu",
         )
         if input_format == "files":
             return FilesReader(
