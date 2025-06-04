@@ -1,13 +1,14 @@
 """the parquet to arrow module is used to convert the parquet files into arrow files"""
 
-from multiprocessing.pool import ThreadPool
-import os
-from pathlib import Path
-import pyarrow.parquet as pq
-import pyarrow as pa
-from tqdm import tqdm
-import fire
 import math
+import os
+from multiprocessing.pool import ThreadPool
+from pathlib import Path
+
+import fire
+import pyarrow as pa
+import pyarrow.parquet as pq
+from tqdm import tqdm
 
 
 def file_to_count(filename):

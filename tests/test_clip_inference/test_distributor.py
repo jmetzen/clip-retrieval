@@ -1,9 +1,10 @@
 import os
-import numpy as np
 import tempfile
-import pytest
 
-from clip_retrieval.clip_inference.distributor import SequentialDistributor, PysparkDistributor
+import numpy as np
+import pytest
+from clip_retrieval.clip_inference.distributor import (PysparkDistributor,
+                                                       SequentialDistributor)
 
 
 @pytest.mark.parametrize("distributor_kind", ["sequential", "pyspark"])
@@ -30,7 +31,8 @@ def test_distributor(distributor_kind):
         if distributor_kind == "sequential":
             distributor = SequentialDistributor(tasks=tasks, worker_args=worker_args)
         elif distributor_kind == "pyspark":
-            from pyspark.sql import SparkSession  # pylint: disable=import-outside-toplevel
+            from pyspark.sql import \
+                SparkSession  # pylint: disable=import-outside-toplevel
 
             spark = (
                 SparkSession.builder.config("spark.driver.memory", "16G")

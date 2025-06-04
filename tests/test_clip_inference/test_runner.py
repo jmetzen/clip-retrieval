@@ -1,12 +1,13 @@
-from clip_retrieval.clip_inference.logger import LoggerWriter
-from clip_retrieval.clip_inference.runner import Runner
-from clip_retrieval.clip_inference.reader import FilesReader
-from clip_retrieval.clip_inference.mapper import ClipMapper
-from clip_retrieval.clip_inference.writer import NumpyWriter
-from all_clip import load_clip
 import os
-import numpy as np
 import tempfile
+
+import numpy as np
+from all_clip import load_clip
+from clip_retrieval.clip_inference.logger import LoggerWriter
+from clip_retrieval.clip_inference.mapper import ClipMapper
+from clip_retrieval.clip_inference.reader import FilesReader
+from clip_retrieval.clip_inference.runner import Runner
+from clip_retrieval.clip_inference.writer import NumpyWriter
 
 
 def test_runner():

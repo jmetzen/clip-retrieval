@@ -1,8 +1,9 @@
-from clip_retrieval.clip_inference.writer import NumpyWriter
-import numpy as np
+import os
 import pickle
 import tempfile
-import os
+
+import numpy as np
+from clip_retrieval.clip_inference.writer import NumpyWriter
 
 
 def test_writer():

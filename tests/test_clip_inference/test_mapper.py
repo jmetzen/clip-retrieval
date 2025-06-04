@@ -1,8 +1,8 @@
-import pytest
-import pickle
 import os
-import numpy as np
+import pickle
 
+import numpy as np
+import pytest
 from clip_retrieval.clip_inference.mapper import ClipMapper
 
 

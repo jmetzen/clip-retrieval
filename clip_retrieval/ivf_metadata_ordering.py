@@ -1,17 +1,17 @@
 """ivf metadata ordering is a module to reorder a metadata collection by ivf clusters"""
 
-import os
-from tqdm import tqdm
-from pathlib import Path
-import numpy as np
-from collections import defaultdict
 import heapq
+import os
 import time
-import pandas as pd
+from collections import defaultdict
+from pathlib import Path
 
-import pyarrow.parquet as pq
-import h5py
 import faiss
+import h5py
+import numpy as np
+import pandas as pd
+import pyarrow.parquet as pq
+from tqdm import tqdm
 
 
 def search_to_new_ids(index, query, k):

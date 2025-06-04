@@ -1,9 +1,9 @@
 """Distribute work using SLURM"""
 
-import os
-import time
 import json
+import os
 import subprocess
+import time
 from datetime import datetime
 
 TIMESTAMP = datetime.now().timestamp()

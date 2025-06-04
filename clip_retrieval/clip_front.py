@@ -1,8 +1,9 @@
 """clip front"""
 
-from flask import Flask, send_from_directory, request
 import json
+
 import fire
+from flask import Flask, request, send_from_directory
 
 
 def add_static_endpoints(app, default_backend=None, default_index=None, url_column="url"):

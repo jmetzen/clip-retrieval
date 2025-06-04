@@ -2,16 +2,15 @@ import os
 
 os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
-from img2dataset import download
-from clip_retrieval import clip_inference
-from clip_retrieval import clip_index
-import pandas as pd
+import logging
 import shutil
 import subprocess
 import time
-import requests
-import logging
 
+import pandas as pd
+import requests
+from clip_retrieval import clip_index, clip_inference
+from img2dataset import download
 
 LOGGER = logging.getLogger(__name__)
 

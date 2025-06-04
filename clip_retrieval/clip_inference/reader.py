@@ -1,10 +1,11 @@
 """Reader module provides files and webdataset readers"""
 
+import io
 from pathlib import Path
+
 from PIL import Image, UnidentifiedImageError
 from torch.utils.data import DataLoader
 from torch.utils.data.dataloader import default_collate
-import io
 
 
 def folder_to_keys(folder, enable_text=True, enable_image=True, enable_metadata=False):
@@ -61,7 +62,8 @@ def folder_to_keys(folder, enable_text=True, enable_image=True, enable_metadata=
 def get_image_dataset():
     """retrieve image dataset module without importing torch at the top level"""
 
-    from torch.utils.data import Dataset  # pylint: disable=import-outside-toplevel
+    from torch.utils.data import \
+        Dataset  # pylint: disable=import-outside-toplevel
 
     class ImageDataset(Dataset):
         """ImageDataset is a pytorch Dataset exposing image and text tensors from a folder of image and text"""

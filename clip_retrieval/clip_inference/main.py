@@ -1,16 +1,14 @@
 """main module combines distributor, runner, reader, mapper, writer to produce clip embeddings"""
 
-import fire
 import math
-from braceexpand import braceexpand
 
+import fire
+from braceexpand import braceexpand
+from clip_retrieval.clip_inference.distributor import (PysparkDistributor,
+                                                       SequentialDistributor)
 from clip_retrieval.clip_inference.logger import LoggerReader
 from clip_retrieval.clip_inference.reader import folder_to_keys
 from clip_retrieval.clip_inference.slurm_distributor import SlurmDistributor
-from clip_retrieval.clip_inference.distributor import (
-    PysparkDistributor,
-    SequentialDistributor,
-)
 
 
 def calculate_partition_count(

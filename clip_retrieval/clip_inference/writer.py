@@ -1,9 +1,10 @@
 """writer module saves embeddings"""
 
-import fsspec
-from io import BytesIO
 import json
 import math
+from io import BytesIO
+
+import fsspec
 
 
 class OutputSink:

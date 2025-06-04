@@ -1,7 +1,7 @@
 import os
-import numpy as np
-
 import tempfile
+
+import numpy as np
 from clip_retrieval.clip_inference.worker import worker
 
 

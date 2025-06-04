@@ -1,10 +1,11 @@
 """the index combiner module is used to combine the index files into a single index file"""
 
+import os
 from pathlib import Path
-from faiss.contrib.ondisk import merge_ondisk
+
 import faiss
 import fire
-import os
+from faiss.contrib.ondisk import merge_ondisk
 
 
 def index_combiner(input_folder, output_folder):

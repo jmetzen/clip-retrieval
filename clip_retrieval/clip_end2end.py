@@ -7,11 +7,15 @@ def clip_end2end(url_list, output_folder, run_back=True):
     """main entry point of clip end2end"""
 
     import os  # pylint: disable=import-outside-toplevel
-    from img2dataset import download  # pylint: disable=import-outside-toplevel
-    from clip_retrieval import clip_inference  # pylint: disable=import-outside-toplevel
-    from clip_retrieval import clip_index  # pylint: disable=import-outside-toplevel
-    from clip_retrieval import clip_back  # pylint: disable=import-outside-toplevel
+
     import fsspec  # pylint: disable=import-outside-toplevel
+    from clip_retrieval import \
+        clip_back  # pylint: disable=import-outside-toplevel
+    from clip_retrieval import \
+        clip_index  # pylint: disable=import-outside-toplevel
+    from clip_retrieval import \
+        clip_inference  # pylint: disable=import-outside-toplevel
+    from img2dataset import download  # pylint: disable=import-outside-toplevel
 
     fs, output_folder_in_fs = fsspec.core.url_to_fs(output_folder)
     print(output_folder_in_fs)

@@ -9,14 +9,13 @@ Tasks are lists of partition_id's that this worker will be responsible for.
 """
 
 import fire
-from braceexpand import braceexpand
-
-from clip_retrieval.clip_inference.runner import Runner
-from clip_retrieval.clip_inference.mapper import ClipMapper
-from clip_retrieval.clip_inference.writer import NumpyWriter
-from clip_retrieval.clip_inference.logger import LoggerWriter
-from clip_retrieval.clip_inference.reader import FilesReader, WebdatasetReader
 from all_clip import load_clip
+from braceexpand import braceexpand
+from clip_retrieval.clip_inference.logger import LoggerWriter
+from clip_retrieval.clip_inference.mapper import ClipMapper
+from clip_retrieval.clip_inference.reader import FilesReader, WebdatasetReader
+from clip_retrieval.clip_inference.runner import Runner
+from clip_retrieval.clip_inference.writer import NumpyWriter
 
 
 def worker(

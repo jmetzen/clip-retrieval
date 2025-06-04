@@ -1,13 +1,14 @@
 """The logger module allows logging to stdout and wandb"""
 
-from collections import defaultdict
-import fsspec
-import multiprocessing
-import time
 import json
-import wandb
+import multiprocessing
 import queue
+import time
 import traceback
+from collections import defaultdict
+
+import fsspec
+import wandb
 
 
 class LoggerWriter:

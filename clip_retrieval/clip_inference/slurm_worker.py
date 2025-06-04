@@ -5,12 +5,11 @@ This script is called by the slurm distributor.
 Will launch a worker.
 """
 
-import os
 import json
-
-from torch.cuda import set_device
+import os
 
 from clip_retrieval.clip_inference.worker import worker
+from torch.cuda import set_device
 
 
 def get_task_list(num_tasks, world_size, global_rank, local_rank):

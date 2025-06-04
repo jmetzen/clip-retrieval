@@ -1,5 +1,6 @@
 """Test the ClipClient class."""
 import logging
+
 import pytest
 
 LOGGER = logging.getLogger(__name__)

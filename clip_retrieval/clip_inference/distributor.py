@@ -33,7 +33,8 @@ class PysparkDistributor:
         """
 
         import pyspark  # pylint: disable=import-outside-toplevel
-        from pyspark.sql import SparkSession  # pylint: disable=import-outside-toplevel
+        from pyspark.sql import \
+            SparkSession  # pylint: disable=import-outside-toplevel
 
         spark = SparkSession.getActiveSession()
 

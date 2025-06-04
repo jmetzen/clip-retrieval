@@ -1,6 +1,7 @@
-from setuptools import setup, find_packages
-from pathlib import Path
 import os
+from pathlib import Path
+
+from setuptools import find_packages, setup
 
 if __name__ == "__main__":
     with Path(Path(__file__).parent, "README.md").open(encoding="utf-8") as file:

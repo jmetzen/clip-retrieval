@@ -1,9 +1,9 @@
-import pytest
-from clip_retrieval.clip_inference.reader import FilesReader, WebdatasetReader
-from clip_retrieval.clip_inference.runner import Sampler
 import os
 
+import pytest
 from all_clip import load_clip
+from clip_retrieval.clip_inference.reader import FilesReader, WebdatasetReader
+from clip_retrieval.clip_inference.runner import Sampler
 
 
 @pytest.mark.parametrize("file_format", ["files", "webdataset"])
