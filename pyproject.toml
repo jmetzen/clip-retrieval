@@ -1,0 +1,5 @@
+[tool.poetry]
+name = "clip-retrieval"
+version = "2.44.0"
+description = "CLIP Retrieval"
+authors = ["void"]
