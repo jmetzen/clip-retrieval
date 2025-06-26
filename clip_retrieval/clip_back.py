@@ -23,10 +23,6 @@ import h5py
 import numpy as np
 import pandas as pd
 import pyarrow as pa
-from clip_retrieval.ivf_metadata_ordering import (Hdf5Sink,
-                                                  external_sort_parquet,
-                                                  get_old_to_new_mapping,
-                                                  re_order_parquet)
 from flask import Flask, make_response, request
 from flask_cors import CORS
 from flask_restful import Api, Resource
@@ -34,6 +30,13 @@ from PIL import Image
 from prometheus_client import REGISTRY, Histogram, make_wsgi_app
 from tqdm import tqdm
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
+
+from clip_retrieval.ivf_metadata_ordering import (
+    Hdf5Sink,
+    external_sort_parquet,
+    get_old_to_new_mapping,
+    re_order_parquet,
+)
 
 LOGGER = logging.getLogger(__name__)
 
@@ -773,7 +776,7 @@ def get_aesthetic_embedding(model_type):
         import torch
 
         state_dict = torch.load(
-            "assets/reward_model_shape_linear.pth", map_location="cpu"
+            "weights/reward_model_shape_linear.pth", map_location="cpu"
         )
 
         def get(k):
@@ -787,8 +790,7 @@ def get_aesthetic_embedding(model_type):
 @lru_cache(maxsize=None)
 def load_violence_detector(clip_model):
     """load violence detector for this clip model"""
-    from urllib.request import \
-        urlretrieve  # pylint: disable=import-outside-toplevel
+    from urllib.request import urlretrieve  # pylint: disable=import-outside-toplevel
 
     cache_folder = get_cache_folder(clip_model)
     root_url = "https://github.com/LAION-AI/CLIP-based-NSFW-Detector/raw/main"
@@ -814,10 +816,13 @@ def load_violence_detector(clip_model):
 def load_safety_model(clip_model):
     """load the safety model"""
     import autokeras as ak  # pylint: disable=import-outside-toplevel
-    from clip_retrieval.h14_nsfw_model import \
-        H14_NSFW_Detector  # pylint: disable=import-outside-toplevel
-    from tensorflow.keras.models import \
-        load_model  # pylint: disable=import-outside-toplevel
+    from tensorflow.keras.models import (
+        load_model,  # pylint: disable=import-outside-toplevel
+    )
+
+    from clip_retrieval.h14_nsfw_model import (
+        H14_NSFW_Detector,  # pylint: disable=import-outside-toplevel
+    )
 
     cache_folder = get_cache_folder(clip_model)
 
@@ -834,8 +839,9 @@ def load_safety_model(clip_model):
     if not os.path.exists(model_dir):
         os.makedirs(cache_folder, exist_ok=True)
 
-        from urllib.request import \
-            urlretrieve  # pylint: disable=import-outside-toplevel
+        from urllib.request import (
+            urlretrieve,  # pylint: disable=import-outside-toplevel
+        )
 
         path_to_zip_file = cache_folder + "/clip_autokeras_binary_nsfw.zip"
         if clip_model == "ViT-L/14":
@@ -950,8 +956,9 @@ def load_mclip(clip_model):
     """load the mclip model"""
     import torch  # pylint: disable=import-outside-toplevel
     import transformers  # pylint: disable=import-outside-toplevel
-    from multilingual_clip import \
-        pt_multilingual_clip  # pylint: disable=import-outside-toplevel
+    from multilingual_clip import (
+        pt_multilingual_clip,  # pylint: disable=import-outside-toplevel
+    )
 
     if clip_model == "ViT-L/14":
         model_name = "M-CLIP/XLM-Roberta-Large-Vit-L-14"
@@ -1127,8 +1134,9 @@ def clip_back(
 
     app = Flask(__name__)
     app.wsgi_app = DispatcherMiddleware(app.wsgi_app, {"/metrics": make_wsgi_app()})
-    from .clip_front import \
-        add_static_endpoints  # pylint: disable=import-outside-toplevel
+    from .clip_front import (
+        add_static_endpoints,  # pylint: disable=import-outside-toplevel
+    )
 
     add_static_endpoints(app, default_backend, None, url_column)
 
